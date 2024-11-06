@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {
   "name": "my-backend",
   "version": "1.0.0",
@@ -16,20 +16,4 @@
     "my-backend": "file:"
   }
 }
-=======
-{
-    "name": "my-backend",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "build": "npm install"
-    },
-    "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^8.2.0",
-        "express": "^4.17.1",
-        "my-backend": "file:"
-    }
-}
->>>>>>> 8a3b4cbc1b7bd7e6daa53f02137fc14be8ead122
+

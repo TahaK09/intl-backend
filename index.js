@@ -9,8 +9,11 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: "https://makeitintl.com/", // or specify your frontend URL here
+  origin: "https://makeitintl.com/resources", // Replace with your frontend URL if you have one.
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 app.use(bodyParser.json());
 
 // MongoDB connection using Mongoose

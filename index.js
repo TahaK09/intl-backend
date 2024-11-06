@@ -85,6 +85,26 @@ app.get("/api/pdfs", async (req, res) => {
   }
 });
 
+// Links
+app.post("/api/links", async (req, res) => {
+  try {
+    const newLink = new Link(req.body);
+    await newLink.save();
+    res.status(201).json(newLink);
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/links", async (req, res) => {
+  try {
+    const newLink = await Link.find();
+    res.status(200).json(newLink);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 
 const PORT = 5000;

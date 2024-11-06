@@ -61,6 +61,7 @@ const NewsletterSchema = new mongoose.Schema({
 const Link = mongoose.model("Link", LinkSchema);
 const PDF = mongoose.model("Pdf", PdfSchema);
 const Blog = mongoose.model("Blog", blogSchema);
+
 const Intern = mongoose.model("Internship", internSchema);
 const Testimonial = mongoose.model("Testimonial", testimonialSchema);
 const Newsletter = mongoose.model("Newsletter", NewsletterSchema);

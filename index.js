@@ -14,9 +14,7 @@ app.use(bodyParser.json());
 
 // MongoDB connection using Mongoose
 mongoose
-  .connect(
-    "mongodb+srv://dars:darshan-123@cluster0.z0rsm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection error:", err));
 

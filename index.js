@@ -158,6 +158,15 @@ app.get("/api/blogs", async (req, res) => {
   }
 });
 
+app.get("/api/blogs/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    res.json(blog);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.delete("/api/blogs/:id", async (req, res) => {
   try {
     const { id } = req.params;

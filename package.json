@@ -1,0 +1,17 @@
+{
+  "name": "my-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "npm install"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.0",
+    "my-backend": "file:"
+  }
+}

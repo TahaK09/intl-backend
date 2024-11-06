@@ -167,6 +167,15 @@ app.get("/api/blogs/:id", async (req, res) => {
   }
 });
 
+app.get("/api/blogs/latest", async (req, res) => {
+  try {
+    const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3); // Fetch the latest 3 blogs
+    res.json(latestBlogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.delete("/api/blogs/:id", async (req, res) => {
   try {
     const { id } = req.params;

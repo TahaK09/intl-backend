@@ -9,9 +9,9 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: "*", // Replace with your frontend URL if you have one.
+  origin: "https://makeitintl.com", // specify your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(bodyParser.json());

@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: "https://makeitintl.com/resources", // Replace with your frontend URL if you have one.
+  origin: "*", // Replace with your frontend URL if you have one.
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));

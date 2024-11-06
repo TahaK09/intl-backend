@@ -91,6 +91,19 @@ app.get("/api/pdfs", async (req, res) => {
   }
 });
 
+app.delete("/api/pdfs/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletePDF = await PDF.findByIdAndDelete(id);
+    if (!deletePDF) {
+      return res.status(404).json({ error: "PDF not found" });
+    }
+    res.status(200).json({ message: "PDF deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Links
 app.post("/api/links", async (req, res) => {
   try {
@@ -119,6 +132,73 @@ app.delete("/api/links/:id", async (req, res) => {
       return res.status(404).json({ error: "Link not found" });
     }
     res.status(200).json({ message: "Link deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// Blogs
+app.post("/api/blogs", async (req, res) => {
+  try {
+    const newBlog = new Blog(req.body);
+    await newBlog.save();
+    res.status(201).json(newBlog);
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/blogs", async (req, res) => {
+  try {
+    const newBlog = await Blog.find();
+    res.status(200).json(newBlog);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete("/api/blogs/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedBlog = await Blog.findByIdAndDelete(id);
+    if (!deletedBlog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
+    res.status(200).json({ message: "Blog deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Testimonial
+app.post("/api/testimonials", async (req, res) => {
+  try {
+    const newTestimonial = new Testimonial(req.body);
+    await newTestimonial.save();
+    res.status(201).json(newTestimonial);
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/testimonials", async (req, res) => {
+  try {
+    const newTestimonial = await Testimonial.find();
+    res.status(200).json(newTestimonial);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete("/api/testimonials/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedTestimonial = await Testimonial.findByIdAndDelete(id);
+    if (!deletedTestimonial) {
+      return res.status(404).json({ error: "Testimonial not found" });
+    }
+    res.status(200).json({ message: "Testimonial deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }

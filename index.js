@@ -4,7 +4,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { MongoClient, ObjectId, Binary } = require("mongodb");
 const dotenv = require("dotenv");
-const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -86,32 +85,7 @@ app.get("/api/pdfs", async (req, res) => {
   }
 });
 
-// Email sending route
-app.post("/api/send-email", async (req, res) => {
-  const { subject, content } = req.body;
-  const emails = await Newsletter.find({});
-  const emailList = emails.map((e) => e.email);
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: emailList,
-    subject,
-    text: content,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return res.status(500).send(error.toString());
-    res.status(200).send("Emails sent: " + info.response);
-  });
-});
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

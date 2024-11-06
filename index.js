@@ -8,7 +8,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://makeitintl.com/", // or specify your frontend URL here
+}));
 app.use(bodyParser.json());
 
 // MongoDB connection using Mongoose

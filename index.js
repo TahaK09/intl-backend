@@ -111,6 +111,18 @@ app.get("/api/links", async (req, res) => {
   }
 });
 
+app.delete("/api/links/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedLink = await Link.findByIdAndDelete(id);
+    if (!deletedLink) {
+      return res.status(404).json({ error: "Link not found" });
+    }
+    res.status(200).json({ message: "Link deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

@@ -8,11 +8,24 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: "https://makeitintl.com", // specify your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+
+const allowedOrigins = ["https://makeitintl.com", "http://localhost:5173"];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(bodyParser.json());
 
@@ -136,7 +149,6 @@ app.delete("/api/links/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 // Blogs
 app.post("/api/blogs", async (req, res) => {

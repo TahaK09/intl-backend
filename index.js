@@ -170,19 +170,19 @@ app.get("/api/blogs", async (req, res) => {
   }
 });
 
-app.get("/api/blogs/:id", async (req, res) => {
+app.get("/api/blogs/latest", async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-    res.json(blog);
+    const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(5); // Fetch the latest 3 blogs
+    res.json(latestBlogs);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-app.get("/api/blogs/latest", async (req, res) => {
+app.get("/api/blogs/:id", async (req, res) => {
   try {
-    const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3); // Fetch the latest 3 blogs
-    res.json(latestBlogs);
+    const blog = await Blog.findById(req.params.id);
+    res.json(blog);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -231,6 +231,43 @@ app.delete("/api/testimonials/:id", async (req, res) => {
     res.status(200).json({ message: "Testimonial deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//Newsletter
+app.post("/api/newsletter", async (req, res) => {
+  try {
+    const newNewsletter = new Newsletter(req.body);
+    await newNewsletter.save();
+    res.status(201).json(newNewsletter);
+  } catch (err) {
+    res.status(500).json({ err: "Internal Server Error" });
+  }
+});
+
+//Internship
+app.post("/api/internships", async (req, res) => {
+  try {
+    const newIntern = new Intern(req.body);
+    await newIntern.save();
+    res.status(201).json(newIntern);
+  } catch (err) {
+    res.status(500).json({ err: "Internal Server Error" });
+  }
+});
+app.get("/api/internships", async (req, res) => {
+  try {
+    // Get the current date
+    const currentDate = new Date();
+
+    // Fetch internships with a deadline that is after the current date
+    const newInterns = await Intern.find({
+      deadline: { $gte: currentDate }, // $gte means "greater than or equal to"
+    });
+
+    res.status(200).json(newInterns);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

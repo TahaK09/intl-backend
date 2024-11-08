@@ -65,7 +65,7 @@ const internSchema = new mongoose.Schema({
 });
 
 const testimonialSchema = new mongoose.Schema({
-  imgLink: { type: String, required: true },
+  imgLink: String,
   title: { type: String, required: true },
   content: { type: String, required: true },
 });

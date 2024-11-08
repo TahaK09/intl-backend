@@ -76,6 +76,13 @@ const NewsletterSchema = new mongoose.Schema({
   country: { type: String, required: true },
 });
 
+const DeadlineSchema = new mongoose.Schema({
+  Name: { type: String, required: true },
+  state: { type: String, required: true },
+  Round: { type: String, required: true },
+  Date: { type: String, required: true },
+});
+
 const Link = mongoose.model("Link", LinkSchema);
 const PDF = mongoose.model("Pdf", PdfSchema);
 const Blog = mongoose.model("Blog", blogSchema);
@@ -83,6 +90,8 @@ const Blog = mongoose.model("Blog", blogSchema);
 const Intern = mongoose.model("Internship", internSchema);
 const Testimonial = mongoose.model("Testimonial", testimonialSchema);
 const Newsletter = mongoose.model("Newsletter", NewsletterSchema);
+
+const Deadline = mongoose.model("Deadline", DeadlineSchema);
 
 // Routes
 app.post("/api/pdfs", async (req, res) => {
@@ -266,6 +275,25 @@ app.get("/api/internships", async (req, res) => {
     });
 
     res.status(200).json(newInterns);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+//Deadline Calendar
+app.post("/api/deadlines", async (req, res) => {
+  try {
+    const newdeadline = new Deadline(req.body);
+    await newdeadline.save();
+    res.status(201).json(newdeadline);
+  } catch (err) {
+    res.status(500).json({ err: "Internal Server Error" });
+  }
+});
+app.get("/api/deadlines", async (req, res) => {
+  try {
+    const newdeadline = await Deadline.find();
+    res.status(200).json(newdeadline);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

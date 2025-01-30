@@ -9,7 +9,11 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ["https://makeitintl.com", "http://localhost:5173"];
+const allowedOrigins = [
+  "https://www.makeitintl.com",
+  "https://makeitintl.com",
+  "http://localhost:3000", // For local development
+];
 
 app.use(
   cors({
